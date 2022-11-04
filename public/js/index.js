@@ -1,6 +1,5 @@
 const socket = io();
 
-
 // update-productos
 const formProducto = document.getElementById('form-producto')
 formProducto.addEventListener('submit', e => {

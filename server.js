@@ -9,11 +9,11 @@ const io = new Server(httpServer, {
 });
 
 import ClienteSql from './sql.js'
-import { config } from './config/sqlite3.js'
+/* import { config } from './config/sqlite3.js' */
 import {mysql} from './config/mysql.js'
 
-const sql = new ClienteSql(config) // sql3 no funciona????
-const mysqlprod = new ClienteSql(mysql)
+/* const sql = new ClienteSql(config) */ // sql3 no funciona????
+const sql = new ClienteSql(mysql)
 
 
 const productos = []
@@ -25,13 +25,13 @@ io.on('connection', async socket => {
     await sql.crearTabla('mensajes')
     console.log("**TABLA DE MENSAJES CREADA**")
 
-    await mysqlprod.crearTabla('productos')
+    await sql.crearTabla('productos')
     console.log("**TABLA DE PRODUCTOS CREADA**")
 
     socket.emit('productos', productos);
     socket.on('update-productos',async e => {
-        await mysqlprod.insert('productos',e)
-        io.sockets.emit('productos', await mysqlprod.listar('productos'));
+        await sql.insert('productos',e)
+        io.sockets.emit('productos', await sql.listar('productos'));
     })
 
     socket.emit('chat', await sql.listar('mensajes'));
