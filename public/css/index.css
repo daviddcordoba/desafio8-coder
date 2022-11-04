@@ -1,0 +1,10 @@
+h1 {
+    color: blue;
+}
+
+
+.form-chat-input{
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    padding: 4px;
+}
